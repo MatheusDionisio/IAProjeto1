@@ -1,5 +1,6 @@
 using System.Collections;
 using Projeto1API.Extensions;
+using Projeto1API.Processos;
 
 namespace Projeto1API.Models
 {
@@ -8,69 +9,25 @@ namespace Projeto1API.Models
         public Individuo(bool[] geneX, bool[] geneY){
             GeneX =geneX;
             GeneY =geneY;
-            Fitness = ObtenhaFitness();
+            ValorX = -100 +(GeneX.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
+            ValorY = -100 +(GeneY.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
+            Fitness = SelecaoHelper.F6(ValorX,ValorY);
         }
 
         public bool[] GeneX {get;set;}
 
         public bool[] GeneY {get;set;}
 
-        public double ValorX {get; set;}
-
-        public double ValorY {get; set;}
-        public uint RealX {get; set;}
-
-        public uint RealY {get; set;}
-
         public double Fitness {get; set;}
-    
 
-        public double ObtenhaFitness(){
+        private double ValorX {get; set;}
 
-            uint geneXint = GeneX.BoolArrayToInt();
-            uint geneYint = GeneY.BoolArrayToInt();
+        private double ValorY {get; set;}
 
-            this.RealX = geneXint;
-            this.RealY = geneYint;
+        public override string ToString() =>
+            $"Valor x = {this.ValorX}, y = {this.ValorY}, fitness = {this.Fitness}";
 
-            this.ValorX = -100 +(geneXint * (200/(Math.Pow(2,22)-1)));
-            this.ValorY = -100 +(geneYint * (200/(Math.Pow(2,22)-1)));
-
-            var x = this.ValorX;
-            var y = this.ValorY;
-
-           return F6(x,y);
-            
-        }
-
-        public double F6(double x, double y)
-        {
-            double primeiroTermo = Math.Pow(
-                Math.Sin(
-                    Math.Sqrt(
-                        Math.Pow(x,2) + Math.Pow(y,2)
-                    )
-                ),2
-            ) - 0.5;
-
-            //(1,0 + 0,001(x^2 + y^2 ))^2
-            double segundoTermo = Math.Pow(
-                (1 + 0.001 * (Math.Pow(x,2) + Math.Pow(y,2))
-                
-                ),2
-            ) ;
-
-            return 0.5 - (primeiroTermo / segundoTermo);
-        }
-
-        public override string ToString()
-        {
-            return $"Valor x = {this.ValorX}, y = {this.ValorY}, fitness = {this.Fitness}";
-        }
-
-        public object Clone()
-        {
-            return this.MemberwiseClone();;
-        }
+        public object Clone() =>
+            this.MemberwiseClone();
     }
 }

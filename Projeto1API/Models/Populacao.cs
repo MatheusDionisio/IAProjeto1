@@ -12,13 +12,11 @@ namespace Projeto1API.Models
             Individuos = individuos;
         }
 
-        public Individuo ObtenhaMelhorIndividuoPopulacao(){
-            return Individuos.OrderBy(ind => ind.Fitness).Last();
-        } 
+        public Individuo ObtenhaMelhorIndividuoPopulacao() =>
+            Individuos.OrderBy(ind => ind.Fitness).Last();
 
-        public void InicieFaseMutagenica(){
+        public void InicieFaseMutagenica() =>
             Individuos = Individuos.Select(ind => ind.InicieMutacao()).ToList();
-        }
 
         public void InicieFaseAcasalemento(){
 

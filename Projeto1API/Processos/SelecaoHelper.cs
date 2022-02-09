@@ -1,41 +1,54 @@
-using System.Collections;
 using Projeto1API.Models;
 
 namespace Projeto1API.Processos
 {
     public static class SelecaoHelper
     {
-        public static double ObtenhaValorAleatorio(double valor){
-            var rand = new Random();
-
-            return valor * rand.NextDouble();
-        }
+        public static double ObtenhaValorAleatorio(double valor = 1) =>
+            valor * new Random().NextDouble();
 
         public static List<Individuo> ObtenhaIndividuosAleatorios(){
-            Individuo individuo;
             var individuos = new List<Individuo>();
 
             for(int i =0;i<100;i++){
 
-                individuo = new Individuo(ObtenhaGene(), ObtenhaGene());
-                individuos.Add(individuo);
+                individuos.Add(ObtenhaIndividuoAleatorio());
             }
 
             return individuos;
         }
 
-        private static bool[] ObtenhaGene()
+        private static Individuo ObtenhaIndividuoAleatorio() =>
+            new Individuo(ObtenhaGeneAleatorio(), ObtenhaGeneAleatorio());
+
+        private static bool[] ObtenhaGeneAleatorio()
         {
-            double valorSorteado = 0;
             bool[] gene = new bool[22];
 
             for(int i = 0; i < 22; i++){
-                valorSorteado = SelecaoHelper.ObtenhaValorAleatorio(1);
-
-                gene[i] = valorSorteado < 0.5;
+                gene[i] = SelecaoHelper.ObtenhaValorAleatorio() < 0.3;
             }
 
             return gene;
+        }
+
+        public static double F6(double x, double y)
+        {
+            double primeiroTermo = Math.Pow(
+                Math.Sin(
+                    Math.Sqrt(
+                        Math.Pow(x,2) + Math.Pow(y,2)
+                    )
+                ),2
+            ) - 0.5;
+
+            double segundoTermo = Math.Pow(
+                (1 + 0.001 * (Math.Pow(x,2) + Math.Pow(y,2))
+                
+                ),2
+            ) ;
+
+            return 0.5 - (primeiroTermo / segundoTermo);
         }
 
     }
