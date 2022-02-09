@@ -1,3 +1,4 @@
+using System.Collections;
 using Projeto1API.Models;
 using Projeto1API.Processos;
 
@@ -22,11 +23,10 @@ namespace Projeto1API.Extensions
         }
 
         public static uint BoolArrayToInt(this bool[] bits){
-            uint r = 0;
-
-            for(int i = 0; i < bits.Length; i++) if(bits[i]) r |=(uint) 1 << (bits.Length - i);
-
-            return r;
+            BitArray arr = new BitArray(bits);
+            uint[] array = new uint[1];
+            arr.CopyTo(array, 0);
+            return array[0];
         }
 
         public static string Texto(this bool[] bits){

@@ -1,21 +1,14 @@
 using System.Collections;
+using Projeto1API.Extensions;
 
 namespace Projeto1API.Models
 {
-    public class Individuo
+    public class Individuo : ICloneable
     {
         public Individuo(bool[] geneX, bool[] geneY){
             GeneX =geneX;
             GeneY =geneY;
-
-            BitArray arr = new BitArray(geneX);
-            uint[] array = new uint[1];
-            arr.CopyTo(array, 0);
-            arr = new BitArray(geneY);
-            uint[] array2 = new uint[1];
-            arr.CopyTo(array2, 0);
-            
-            Fitness = ObtenhaFitness(array[0], array2[0]);
+            Fitness = ObtenhaFitness();
         }
 
         public bool[] GeneX {get;set;}
@@ -32,8 +25,10 @@ namespace Projeto1API.Models
         public double Fitness {get; set;}
     
 
-        public double ObtenhaFitness(uint geneXint, uint geneYint){
+        public double ObtenhaFitness(){
 
+            uint geneXint = GeneX.BoolArrayToInt();
+            uint geneYint = GeneY.BoolArrayToInt();
 
             this.RealX = geneXint;
             this.RealY = geneYint;
@@ -73,5 +68,9 @@ namespace Projeto1API.Models
             return $"Valor x = {this.ValorX}, y = {this.ValorY}, fitness = {this.Fitness}";
         }
 
+        public object Clone()
+        {
+            return this.MemberwiseClone();;
+        }
     }
 }
