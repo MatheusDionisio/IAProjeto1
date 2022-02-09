@@ -44,7 +44,12 @@ namespace Projeto1
             var x = this.ValorX;
             var y = this.ValorY;
 
-            //(sen √(x^ 2 + y^2))^2 - 0,5
+           return F6(x,y);
+            
+        }
+
+        public double F6(double x, double y)
+        {
             double primeiroTermo = Math.Pow(
                 Math.Sin(
                     Math.Sqrt(

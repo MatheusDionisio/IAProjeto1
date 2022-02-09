@@ -1,0 +1,17 @@
+*.user
+*.suo
+*.swo
+*.swp
+*.log
+*.config
+*.DotSettings
+
+.vs/
+.vscode/
+bin/
+obj/
+Release/
+Erros/
+TestResults/
+packages/
+*.txt

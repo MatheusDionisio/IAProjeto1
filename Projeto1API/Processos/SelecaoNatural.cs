@@ -1,22 +1,30 @@
-namespace Projeto1
+using Projeto1API.Extensions;
+using Projeto1API.Models;
+
+namespace Projeto1API.Processos
 {
     public class SelecaoNatural
     {
         public void Iniciar()
         {
             var populacao = ObtenhaPopulacaoIncial();
+            var individuo = populacao.ObtenhaMelhorIndividuo();
 
             populacao.InicieFaseAcasalemento();
-
-            for(int i = 0; i < 40; i++){
-                Console.WriteLine($"Geração {i}");
+            Console.WriteLine(individuo.ToString() + $" geneX = {individuo.GeneX.Texto()} geneY = {individuo.GeneY.Texto()}");
+            for(int i = 0; i < 4000; i++){
 
                 populacao.InicieFaseMutagenica();
 
                 populacao.InicieFaseAcasalemento();
+                
+                populacao.ObtenhaMelhorIndividuo();
             }
 
-            populacao.ObtenhaMelhorIndividuo();
+            individuo = populacao.ObtenhaMelhorIndividuo();
+
+            Console.WriteLine(individuo.ToString() + $" geneX = {individuo.GeneX.Texto()} geneY = {individuo.GeneY.Texto()}");
+            Console.WriteLine(individuo.ToString());
         }
 
         private Populacao ObtenhaPopulacaoIncial(){

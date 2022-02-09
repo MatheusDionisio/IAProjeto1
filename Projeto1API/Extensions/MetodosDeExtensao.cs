@@ -1,4 +1,7 @@
-namespace Projeto1
+using Projeto1API.Models;
+using Projeto1API.Processos;
+
+namespace Projeto1API.Extensions
 {
     public static class MetodosDeExtensao
     {
@@ -13,7 +16,7 @@ namespace Projeto1
         
         public static void MuteGene(this bool gene){
             double valorSorteado = SelecaoHelper.ObtenhaValorAleatorio(1);
-            if(valorSorteado <= 0.008){
+            if(valorSorteado <= 0.8){
                 gene = !gene;
             }
         }
@@ -24,6 +27,20 @@ namespace Projeto1
             for(int i = 0; i < bits.Length; i++) if(bits[i]) r |=(uint) 1 << (bits.Length - i);
 
             return r;
+        }
+
+        public static string Texto(this bool[] bits){
+            
+            string palavra = "";
+
+            foreach(var bit in bits){
+                if(bit)
+                    palavra+="1";
+                else
+                    palavra+="0";    
+            }
+
+            return palavra;
         }
         
     }
