@@ -1,6 +1,5 @@
-using System.Collections;
 using Projeto1API.Extensions;
-using Projeto1API.Processos;
+using Projeto1API.Helper;
 
 namespace Projeto1API.Models
 {
@@ -29,5 +28,12 @@ namespace Projeto1API.Models
 
         public object Clone() =>
             this.MemberwiseClone();
+
+        internal void CalculeNovaFitness()
+        {
+            ValorX = -100 +(GeneX.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
+            ValorY = -100 +(GeneY.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
+            Fitness = SelecaoHelper.F6(ValorX,ValorY);
+        }
     }
 }

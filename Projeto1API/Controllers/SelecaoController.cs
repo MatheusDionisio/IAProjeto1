@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Projeto1API.Extensions;
 using Projeto1API.Models;
-using Projeto1API.Processos;
+using Projeto1API.Helper;
 
 namespace Projeto1API.Controllers;
 
@@ -20,11 +19,15 @@ public class SelecaoController : ControllerBase
 
         for(int i = 0; i < parametros.NumeroGeracoes; i++){
 
-            populacao.InicieFaseMutagenica();
+            // populacao.InicieFaseMutagenica();
 
             populacao.InicieFaseAcasalemento();
             
             melhores.Add(populacao.ObtenhaMelhorIndividuoPopulacao());
+        }
+
+        foreach(var ind in melhores){
+            Console.WriteLine(ind.ToString());
         }
 
        return melhores;

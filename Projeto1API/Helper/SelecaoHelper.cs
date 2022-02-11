@@ -1,6 +1,6 @@
 using Projeto1API.Models;
 
-namespace Projeto1API.Processos
+namespace Projeto1API.Helper
 {
     public static class SelecaoHelper
     {

@@ -1,6 +1,6 @@
 using System.Collections;
 using Projeto1API.Models;
-using Projeto1API.Processos;
+using Projeto1API.Helper;
 
 namespace Projeto1API.Extensions
 {
@@ -12,12 +12,14 @@ namespace Projeto1API.Extensions
                 individuo.GeneX[i].MuteGene();
                 individuo.GeneY[i].MuteGene();
             }
+            individuo.CalculeNovaFitness();
+
             return individuo;
         }
         
         public static void MuteGene(this bool gene){
             double valorSorteado = SelecaoHelper.ObtenhaValorAleatorio(1);
-            if(valorSorteado <= 0.8){
+            if(valorSorteado <= 0.008){
                 gene = !gene;
             }
         }

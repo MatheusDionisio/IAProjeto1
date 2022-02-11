@@ -1,5 +1,5 @@
 using Projeto1API.Extensions;
-using Projeto1API.Processos;
+using Projeto1API.Helper;
 
 namespace Projeto1API.Models
 {
@@ -44,7 +44,7 @@ namespace Projeto1API.Models
         private void ObtenhaNovaGeracao()
         {
             ProximaGeracao.Add(ObtenhaMelhorIndividuoPopulacao());
-            Individuos = ProximaGeracao;
+            Individuos = ProximaGeracao.Select(ind => ind).ToList();
             ProximaGeracao = new List<Individuo>();
         }
 
@@ -53,7 +53,15 @@ namespace Projeto1API.Models
 
             double fitnessCorte = SelecaoHelper.ObtenhaValorAleatorio(fitnessTotal);
 
-            return Individuos.First(ind => (fitnessCorte -= ind.Fitness)<= 0);
+            foreach(Individuo ind in Individuos){
+                fitnessCorte -= ind.Fitness;
+
+                if(fitnessCorte <= 0){
+                    return ind;
+                }
+            }
+
+            return Individuos.First();
 
         }
         
@@ -82,6 +90,8 @@ namespace Projeto1API.Models
                 pai.GeneY[i] = mae.GeneY[i];
                 mae.GeneY[i] = auxiliar;
             }
+            pai.CalculeNovaFitness();
+            mae.CalculeNovaFitness();
         }
     }
 }
