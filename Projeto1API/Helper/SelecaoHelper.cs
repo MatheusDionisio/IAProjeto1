@@ -19,13 +19,13 @@ namespace Projeto1API.Helper
         }
 
         private static Individuo ObtenhaIndividuoAleatorio() =>
-            new Individuo(ObtenhaGeneAleatorio(), ObtenhaGeneAleatorio());
+            new Individuo(ObtenhaGeneAleatorio());
 
         private static bool[] ObtenhaGeneAleatorio()
         {
-            bool[] gene = new bool[22];
+            bool[] gene = new bool[44];
 
-            for(int i = 0; i < 22; i++){
+            for(int i = 0; i < 44; i++){
                 gene[i] = SelecaoHelper.ObtenhaValorAleatorio() < 0.3;
             }
 

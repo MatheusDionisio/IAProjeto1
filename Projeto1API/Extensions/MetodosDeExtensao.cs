@@ -8,9 +8,8 @@ namespace Projeto1API.Extensions
     {
         public static Individuo InicieMutacao(this Individuo individuo){
             
-            for(int i=0;i<22;i++){
-                individuo.GeneX[i].MuteGene();
-                individuo.GeneY[i].MuteGene();
+            for(int i=0;i<44;i++){
+                individuo.Gene[i].MuteGene();
             }
             individuo.CalculeNovaFitness();
 
@@ -19,7 +18,7 @@ namespace Projeto1API.Extensions
         
         public static void MuteGene(this bool gene){
             double valorSorteado = SelecaoHelper.ObtenhaValorAleatorio(1);
-            if(valorSorteado <= 0.008){
+            if(valorSorteado <= 0.0008){
                 gene = !gene;
             }
         }

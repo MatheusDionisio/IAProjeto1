@@ -3,7 +3,7 @@ using Projeto1API.Helper;
 
 namespace Projeto1API.Models
 {
-    public class Populacao
+    public class Populacao : ICloneable
     {
         List<Individuo> Individuos {get;set;}
         List<Individuo> ProximaGeracao = new List<Individuo>();
@@ -81,17 +81,16 @@ namespace Projeto1API.Models
             int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(22);
 
             bool auxiliar;
-            for(int i = pontoCorte;i<22;i++){
-                auxiliar = pai.GeneX[i];
-                pai.GeneX[i] = mae.GeneX[i];
-                mae.GeneX[i] = auxiliar;
-
-                auxiliar = pai.GeneY[i];
-                pai.GeneY[i] = mae.GeneY[i];
-                mae.GeneY[i] = auxiliar;
+            for(int i = pontoCorte;i<44;i++){
+                auxiliar = pai.Gene[i];
+                pai.Gene[i] = mae.Gene[i];
+                mae.Gene[i] = auxiliar;
             }
             pai.CalculeNovaFitness();
             mae.CalculeNovaFitness();
         }
+
+        public object Clone() =>
+            this.MemberwiseClone();
     }
 }

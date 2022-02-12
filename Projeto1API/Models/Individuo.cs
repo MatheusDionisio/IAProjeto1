@@ -5,17 +5,12 @@ namespace Projeto1API.Models
 {
     public class Individuo : ICloneable
     {
-        public Individuo(bool[] geneX, bool[] geneY){
-            GeneX =geneX;
-            GeneY =geneY;
-            ValorX = -100 +(GeneX.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
-            ValorY = -100 +(GeneY.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
-            Fitness = SelecaoHelper.F6(ValorX,ValorY);
+        public Individuo(bool[] gene){
+            Gene = gene;
+            CalculeNovaFitness();
         }
 
-        public bool[] GeneX {get;set;}
-
-        public bool[] GeneY {get;set;}
+        public bool[] Gene {get;set;}
 
         public double Fitness {get; set;}
 
@@ -29,10 +24,14 @@ namespace Projeto1API.Models
         public object Clone() =>
             this.MemberwiseClone();
 
-        internal void CalculeNovaFitness()
+        public void CalculeNovaFitness()
         {
-            ValorX = -100 +(GeneX.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
-            ValorY = -100 +(GeneY.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
+            var geneX = Gene.Take(22).ToArray();
+            var geneY = Gene.Skip(22).ToArray();
+
+            ValorX = -100 +(geneX.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
+            ValorY = -100 +(geneY.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
+            
             Fitness = SelecaoHelper.F6(ValorX,ValorY);
         }
     }

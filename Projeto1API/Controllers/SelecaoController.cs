@@ -9,7 +9,8 @@ namespace Projeto1API.Controllers;
 public class SelecaoController : ControllerBase
 {
     [HttpPost]
-    public List<Individuo> Post([FromBody] SelecaoParametro parametros)
+    [Route("Melhores")]
+    public List<Individuo> Melhores()
     {
         var populacao = new Populacao(SelecaoHelper.ObtenhaIndividuosAleatorios());
         
@@ -17,7 +18,7 @@ public class SelecaoController : ControllerBase
 
         populacao.InicieFaseAcasalemento();
 
-        for(int i = 0; i < parametros.NumeroGeracoes; i++){
+        for(int i = 0; i < 40; i++){
 
             // populacao.InicieFaseMutagenica();
 
@@ -30,6 +31,30 @@ public class SelecaoController : ControllerBase
             Console.WriteLine(ind.ToString());
         }
 
+        Console.WriteLine("Fim");
+
        return melhores;
+    }
+
+    [HttpPost]
+    [Route("Populacoes")]
+    public List<Populacao> Populacoes()
+    {
+        var populacao = new Populacao(SelecaoHelper.ObtenhaIndividuosAleatorios());
+        
+        List<Populacao> populacoes = new List<Populacao>(){(Populacao)populacao.Clone()};
+
+        populacao.InicieFaseAcasalemento();
+
+        for(int i = 0; i < 40; i++){
+
+            // populacao.InicieFaseMutagenica();
+
+            populacao.InicieFaseAcasalemento();
+            
+            populacoes.Add((Populacao)populacao.Clone());
+        }
+
+       return populacoes;
     }
 }
