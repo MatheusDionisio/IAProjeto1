@@ -8,7 +8,7 @@ namespace Projeto1API.Controllers;
 [Route("[controller]")]
 public class SelecaoController : ControllerBase
 {
-    [HttpPost]
+    [HttpGet]
     [Route("Melhores")]
     public List<double> Melhores()
     {

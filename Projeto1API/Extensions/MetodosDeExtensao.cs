@@ -25,9 +25,12 @@ namespace Projeto1API.Extensions
         }
 
         public static Individuo MuteMelhor(this Individuo individuo){
-            int valorSorteado = (int)SelecaoHelper.ObtenhaValorAleatorio(44);
+            int valorSorteado = (int)SelecaoHelper.ObtenhaValorAleatorio(22);
             
             individuo.Gene[valorSorteado] = !individuo.Gene[valorSorteado];
+            valorSorteado = (int)SelecaoHelper.ObtenhaValorAleatorio(22);
+            
+            individuo.Gene[22+valorSorteado] = !individuo.Gene[22+valorSorteado];
 
             individuo.CalculeNovaFitness();
             return individuo;

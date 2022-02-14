@@ -82,10 +82,16 @@ namespace Projeto1API.Models
 
         private void TrocaDeGenes(Individuo pai, Individuo mae)
         {
-            int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(44);
+            int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(22);
 
             bool auxiliar;
-            for(int i = pontoCorte;i<44;i++){
+            for(int i = pontoCorte;i<22;i++){
+                auxiliar = pai.Gene[i];
+                pai.Gene[i] = mae.Gene[i];
+                mae.Gene[i] = auxiliar;
+            }
+            pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(22);
+            for(int i = 22 + pontoCorte;i<44;i++){
                 auxiliar = pai.Gene[i];
                 pai.Gene[i] = mae.Gene[i];
                 mae.Gene[i] = auxiliar;
@@ -93,6 +99,19 @@ namespace Projeto1API.Models
             pai.CalculeNovaFitness();
             mae.CalculeNovaFitness();
         }
+        // private void TrocaDeGenes(Individuo pai, Individuo mae)
+        // {
+        //     int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(44);
+
+        //     bool auxiliar;
+        //     for(int i = pontoCorte;i<44;i++){
+        //         auxiliar = pai.Gene[i];
+        //         pai.Gene[i] = mae.Gene[i];
+        //         mae.Gene[i] = auxiliar;
+        //     }
+        //     pai.CalculeNovaFitness();
+        //     mae.CalculeNovaFitness();
+        // }
 
         public object Clone() =>
             this.MemberwiseClone();
