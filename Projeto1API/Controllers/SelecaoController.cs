@@ -10,29 +10,22 @@ public class SelecaoController : ControllerBase
 {
     [HttpPost]
     [Route("Melhores")]
-    public List<Individuo> Melhores()
+    public List<double> Melhores()
     {
         var populacao = new Populacao(SelecaoHelper.ObtenhaIndividuosAleatorios());
         
-        List<Individuo> melhores = new List<Individuo>(){populacao.ObtenhaMelhorIndividuoPopulacao()};
+        List<double> melhores = new List<double>(){};
 
-        populacao.InicieFaseAcasalemento();
+        for(int i = 0; i < 4000; i++){
 
-        for(int i = 0; i < 40; i++){
-
-            // populacao.InicieFaseMutagenica();
+            melhores.Add(populacao.ObtenhaMelhorIndividuoPopulacao().Fitness);
 
             populacao.InicieFaseAcasalemento();
-            
-            melhores.Add(populacao.ObtenhaMelhorIndividuoPopulacao());
+
+            populacao.InicieFaseMutagenica();
+
+            populacao.ObtenhaNovaGeracao();
         }
-
-        foreach(var ind in melhores){
-            Console.WriteLine(ind.ToString());
-        }
-
-        Console.WriteLine("Fim");
-
        return melhores;
     }
 
@@ -46,9 +39,9 @@ public class SelecaoController : ControllerBase
 
         populacao.InicieFaseAcasalemento();
 
-        for(int i = 0; i < 40; i++){
+        for(int i = 0; i < 4000; i++){
 
-            // populacao.InicieFaseMutagenica();
+            populacao.InicieFaseMutagenica();
 
             populacao.InicieFaseAcasalemento();
             

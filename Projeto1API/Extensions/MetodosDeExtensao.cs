@@ -7,20 +7,30 @@ namespace Projeto1API.Extensions
     public static class MetodosDeExtensao
     {
         public static Individuo InicieMutacao(this Individuo individuo){
-            
-            for(int i=0;i<44;i++){
-                individuo.Gene[i].MuteGene();
+            foreach(var cromossomo in individuo.Gene){
+               cromossomo.MuteCromossomo();
             }
             individuo.CalculeNovaFitness();
 
             return individuo;
         }
         
-        public static void MuteGene(this bool gene){
-            double valorSorteado = SelecaoHelper.ObtenhaValorAleatorio(1);
-            if(valorSorteado <= 0.0008){
+        public static bool MuteCromossomo(this bool gene){
+            double valorSorteado = SelecaoHelper.ObtenhaValorAleatorio();
+            if(valorSorteado <= 0.008){
                 gene = !gene;
+                return true;
             }
+            return false;
+        }
+
+        public static Individuo MuteMelhor(this Individuo individuo){
+            int valorSorteado = (int)SelecaoHelper.ObtenhaValorAleatorio(44);
+            
+            individuo.Gene[valorSorteado] = !individuo.Gene[valorSorteado];
+
+            individuo.CalculeNovaFitness();
+            return individuo;
         }
 
         public static uint BoolArrayToInt(this bool[] bits){

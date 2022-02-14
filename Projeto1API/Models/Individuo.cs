@@ -29,10 +29,10 @@ namespace Projeto1API.Models
             var geneX = Gene.Take(22).ToArray();
             var geneY = Gene.Skip(22).ToArray();
 
-            ValorX = -100 +(geneX.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
-            ValorY = -100 +(geneY.BoolArrayToInt() * (200/(Math.Pow(2,22)-1)));
+            ValorX = Math.Round(-100 +(geneX.BoolArrayToInt() * (200/(Math.Pow(2,22)-1))), 8);
+            ValorY = Math.Round(-100 +(geneY.BoolArrayToInt() * (200/(Math.Pow(2,22)-1))), 8);
             
-            Fitness = SelecaoHelper.F6(ValorX,ValorY);
+            Fitness = Math.Round(SelecaoHelper.F6(ValorX,ValorY), 8);
         }
     }
 }

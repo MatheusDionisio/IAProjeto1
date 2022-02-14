@@ -26,7 +26,7 @@ namespace Projeto1API.Helper
             bool[] gene = new bool[44];
 
             for(int i = 0; i < 44; i++){
-                gene[i] = SelecaoHelper.ObtenhaValorAleatorio() < 0.3;
+                gene[i] = SelecaoHelper.ObtenhaValorAleatorio() < 0.5;
             }
 
             return gene;

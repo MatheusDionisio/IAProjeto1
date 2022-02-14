@@ -16,15 +16,14 @@ namespace Projeto1API.Models
             Individuos.OrderBy(ind => ind.Fitness).Last();
 
         public void InicieFaseMutagenica() =>
-            Individuos = Individuos.Select(ind => ind.InicieMutacao()).ToList();
+            ProximaGeracao = ProximaGeracao.Select(ind => ind.InicieMutacao()).ToList();
 
         public void InicieFaseAcasalemento(){
 
-            for(int i = 0; i < 50; i++){
+            for(int i = 0; i < 49; i++){
                 RealizeAcasalamento();
             }
 
-            ObtenhaNovaGeracao();
         }
 
         private void RealizeAcasalamento()
@@ -41,9 +40,14 @@ namespace Projeto1API.Models
             RealizeCruzamento(pai, mae); 
         }
 
-        private void ObtenhaNovaGeracao()
+        public void ObtenhaNovaGeracao()
         {
-            ProximaGeracao.Add(ObtenhaMelhorIndividuoPopulacao());
+            var melhor = ObtenhaMelhorIndividuoPopulacao();
+            var melhorMutad = (Individuo)melhor.Clone();
+
+            ProximaGeracao.Add(melhor);
+            ProximaGeracao.Add(melhorMutad.MuteMelhor());
+
             Individuos = ProximaGeracao.Select(ind => ind).ToList();
             ProximaGeracao = new List<Individuo>();
         }
@@ -78,7 +82,7 @@ namespace Projeto1API.Models
 
         private void TrocaDeGenes(Individuo pai, Individuo mae)
         {
-            int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(22);
+            int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(44);
 
             bool auxiliar;
             for(int i = pontoCorte;i<44;i++){
