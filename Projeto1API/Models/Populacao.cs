@@ -5,7 +5,7 @@ namespace Projeto1API.Models
 {
     public class Populacao : ICloneable
     {
-        List<Individuo> Individuos {get;set;}
+        public List<Individuo> Individuos {get;set;}
         List<Individuo> ProximaGeracao = new List<Individuo>();
         
         public Populacao(List<Individuo> individuos){

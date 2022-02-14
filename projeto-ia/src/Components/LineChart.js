@@ -7,15 +7,14 @@ ChartJS.register(
 );
 
 function LineChart(props) {
-  console.log(props.result);
-  debugger;
-  return(
-    <div style={{height:'500px'}}>
+  function Grafico(){
+    return(
+      <div style={{height:'500px'}}>
         <Line 
             data={{
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Orange'],
+                labels: [...Array(props.result.length).keys()],
                 datasets: [{
-                label: 'My First Dataset',
+                label: 'Line Dataset',
                 data: props.result,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -29,6 +28,12 @@ function LineChart(props) {
             }}
         />
     </div>
+    );
+  }
+  return(
+    <>
+      {props.result === undefined ? <div></div> : Grafico()}
+    </>
   );
 }
 export default LineChart;

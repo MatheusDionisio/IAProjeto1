@@ -16,7 +16,7 @@ public class SelecaoController : ControllerBase
         
         List<double> melhores = new List<double>(){};
 
-        for(int i = 0; i < 4000; i++){
+        for(int i = 0; i < 40; i++){
 
             melhores.Add(populacao.ObtenhaMelhorIndividuoPopulacao().Fitness);
 
@@ -29,23 +29,23 @@ public class SelecaoController : ControllerBase
        return melhores;
     }
 
-    [HttpPost]
+    [HttpGet]
     [Route("Populacoes")]
-    public List<Populacao> Populacoes()
+    public List<IEnumerable<double>> Populacoes()
     {
         var populacao = new Populacao(SelecaoHelper.ObtenhaIndividuosAleatorios());
         
-        List<Populacao> populacoes = new List<Populacao>(){(Populacao)populacao.Clone()};
+        List<IEnumerable<double>> populacoes = new List<IEnumerable<double>>(){};
 
-        populacao.InicieFaseAcasalemento();
+         for(int i = 0; i < 40; i++){
 
-        for(int i = 0; i < 4000; i++){
+            populacoes.Add(populacao.Individuos.Select(i => i.Fitness));
+
+            populacao.InicieFaseAcasalemento();
 
             populacao.InicieFaseMutagenica();
 
-            populacao.InicieFaseAcasalemento();
-            
-            populacoes.Add((Populacao)populacao.Clone());
+            populacao.ObtenhaNovaGeracao();
         }
 
        return populacoes;

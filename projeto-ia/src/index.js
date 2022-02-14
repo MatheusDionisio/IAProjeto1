@@ -6,7 +6,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <div style={{marginLeft:'100px', marginRight:'100px', marginTop:'10px'}}>
+      <App />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
