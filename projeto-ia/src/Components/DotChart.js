@@ -9,14 +9,12 @@ ChartJS.register(
 function DotChart(props) {
 
     const Grafico = () => {
-        console.log(props.result)
-        const filtrado = props.result[0];
+        const filtrado = props.result;
         var dados = []
         for(let i=0;i<filtrado.length;i++){
             const info = {x:i, y:filtrado[i]};
             dados.push(info);
         }
-        debugger;
         return(
             <div style={{height:'500px'}}>
                 <Scatter 
