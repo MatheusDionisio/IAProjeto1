@@ -10,18 +10,17 @@ function App() {
   const [indice, setIndice] = useState(0);
 
   const obtenhaPopulacoes = async () => {
-    const result = await api.get('Populacoes')
+    let qnt = document.getElementById("quantidade").value;
+    const result = await api.get(`Populacoes/${qnt}`)
     return result.data;
   }
 
   const obtenhaDados = async () =>{
     const pop = await obtenhaPopulacoes();
-    console.log(pop);
     var dados =[];
     for(let i = 0; i < pop.length; i++){
       dados.push(Math.max.apply(null, pop[i]));
     }
-    console.log(dados);
     setResultado(dados);
     setPopulacoes(pop);
     setIndice(0);
@@ -70,7 +69,7 @@ function App() {
                   result= {resultado}
                 />
               </div>
-              <div className="row">
+              <div className="row mt-4">
                 <div className="col-12">
                   <DotChart 
                     result= {populacoes[indice]}
@@ -84,6 +83,8 @@ function App() {
         <div className="col-3">
           <div className="row">
           <div className="col-12">
+            <label>Quantidade de gerações:</label>
+            <input className="form-control mb-3" id="quantidade" ></input>
             <button type="button" className="btn btn-outline-primary" style={{width:"100%"}} onClick={obtenhaDados}>Obtenha dados</button>
           </div>
           </div>
@@ -93,7 +94,7 @@ function App() {
           <div className="row mt-2">
             <div className="col-3">
               <button type="button" style={{width:"100%"}} className="btn btn-outline-primary" onClick={obtenhaAnterior}>
-              <i class="fa-solid fa-minus"></i>
+                <i className="fa-solid fa-minus"></i>
               </button>
             </div>
             <div className="col-3">

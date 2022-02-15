@@ -30,14 +30,14 @@ public class SelecaoController : ControllerBase
     }
 
     [HttpGet]
-    [Route("Populacoes")]
-    public List<IEnumerable<double>> Populacoes()
+    [Route("Populacoes/{quantidade}")]
+    public List<IEnumerable<double>> Populacoes(int quantidade)
     {
         var populacao = new Populacao(SelecaoHelper.ObtenhaIndividuosAleatorios());
         
         List<IEnumerable<double>> populacoes = new List<IEnumerable<double>>(){};
 
-         for(int i = 0; i < 40; i++){
+         for(int i = 0; i < quantidade; i++){
 
             populacoes.Add(populacao.Individuos.Select(i => i.Fitness));
 
