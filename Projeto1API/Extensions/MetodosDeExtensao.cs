@@ -7,34 +7,30 @@ namespace Projeto1API.Extensions
     public static class MetodosDeExtensao
     {
         public static Individuo InicieMutacao(this Individuo individuo){
-            foreach(var cromossomo in individuo.Gene){
-               cromossomo.MuteCromossomo();
+            double valorSorteado = SelecaoHelper.ObtenhaValorAleatorio();
+
+            if(valorSorteado <= 0.008){
+               individuo.MuteCromossomo();
             }
-            individuo.CalculeNovaFitness();
 
             return individuo;
         }
         
-        public static bool MuteCromossomo(this bool gene){
-            double valorSorteado = SelecaoHelper.ObtenhaValorAleatorio();
-            if(valorSorteado <= 0.008){
-                gene = !gene;
-                return true;
-            }
-            return false;
-        }
-
-        public static Individuo MuteMelhor(this Individuo individuo){
-            int valorSorteado = (int)SelecaoHelper.ObtenhaValorAleatorio(22);
-            
+        public static void MuteCromossomo(this Individuo individuo){
+            int valorSorteado =(int) SelecaoHelper.ObtenhaValorAleatorio(44);
             individuo.Gene[valorSorteado] = !individuo.Gene[valorSorteado];
-            valorSorteado = (int)SelecaoHelper.ObtenhaValorAleatorio(22);
-            
-            individuo.Gene[22+valorSorteado] = !individuo.Gene[22+valorSorteado];
-
             individuo.CalculeNovaFitness();
-            return individuo;
+
         }
+
+        // public static Individuo MuteMelhor(this Individuo individuo){
+        //     int valorSorteado = (int)SelecaoHelper.ObtenhaValorAleatorio(22);
+            
+        //     individuo.Gene[valorSorteado] = !individuo.Gene[valorSorteado];
+
+        //     individuo.CalculeNovaFitness();
+        //     return individuo;
+        // }
 
         public static uint BoolArrayToInt(this bool[] bits){
             BitArray arr = new BitArray(bits);

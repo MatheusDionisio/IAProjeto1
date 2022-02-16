@@ -20,7 +20,7 @@ namespace Projeto1API.Models
 
         public void InicieFaseAcasalemento(){
 
-            for(int i = 0; i < 49; i++){
+            for(int i = 0; i < 50; i++){
                 RealizeAcasalamento();
             }
 
@@ -43,10 +43,11 @@ namespace Projeto1API.Models
         public void ObtenhaNovaGeracao()
         {
             var melhor = ObtenhaMelhorIndividuoPopulacao();
-            var melhorMutad = (Individuo)melhor.Clone();
+
+            // var melhorMute =(Individuo) melhor.Clone();
+            // ProximaGeracao.Add(melhorMute.MuteMelhor());
 
             ProximaGeracao.Add(melhor);
-            ProximaGeracao.Add(melhorMutad.MuteMelhor());
 
             Individuos = ProximaGeracao.Select(ind => ind).ToList();
             ProximaGeracao = new List<Individuo>();
@@ -73,8 +74,10 @@ namespace Projeto1API.Models
             
             var filho = (Individuo)pai.Clone();
             var filha = (Individuo)mae.Clone();
-
-            TrocaDeGenes(filho, filha);
+            double pontoCorte = SelecaoHelper.ObtenhaValorAleatorio();
+            if(pontoCorte < 0.65){
+                TrocaDeGenes(filho, filha);
+            }
             
             ProximaGeracao.Add(filho);
             ProximaGeracao.Add(filha);
@@ -82,16 +85,10 @@ namespace Projeto1API.Models
 
         private void TrocaDeGenes(Individuo pai, Individuo mae)
         {
-            int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(22);
+            int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(44);
 
             bool auxiliar;
-            for(int i = pontoCorte;i<22;i++){
-                auxiliar = pai.Gene[i];
-                pai.Gene[i] = mae.Gene[i];
-                mae.Gene[i] = auxiliar;
-            }
-            pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(22);
-            for(int i = 22 + pontoCorte;i<44;i++){
+            for(int i = pontoCorte;i<44;i++){
                 auxiliar = pai.Gene[i];
                 pai.Gene[i] = mae.Gene[i];
                 mae.Gene[i] = auxiliar;
@@ -99,19 +96,6 @@ namespace Projeto1API.Models
             pai.CalculeNovaFitness();
             mae.CalculeNovaFitness();
         }
-        // private void TrocaDeGenes(Individuo pai, Individuo mae)
-        // {
-        //     int pontoCorte =(int) SelecaoHelper.ObtenhaValorAleatorio(44);
-
-        //     bool auxiliar;
-        //     for(int i = pontoCorte;i<44;i++){
-        //         auxiliar = pai.Gene[i];
-        //         pai.Gene[i] = mae.Gene[i];
-        //         mae.Gene[i] = auxiliar;
-        //     }
-        //     pai.CalculeNovaFitness();
-        //     mae.CalculeNovaFitness();
-        // }
 
         public object Clone() =>
             this.MemberwiseClone();
